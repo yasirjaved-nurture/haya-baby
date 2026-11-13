@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-display), var(--font-body), ui-sans-serif, sans-serif;
+
+  --color-cream: #fff8f1;
+  --color-shell: #fdf1e8;
+  --color-ink: #2b2738;
+  --color-muted: #7a7486;
+  --color-line: #efe4da;
+
+  --color-brand: #d9776a;
+  --color-brand-dark: #b85c50;
+  --color-brand-soft: #fbe3de;
+
+  --color-blush: #f6d6d2;
+  --color-sage: #d5e6d3;
+  --color-sage-deep: #5f8f6b;
+  --color-sky: #d7e7f4;
+  --color-butter: #fbebc0;
+  --color-lilac: #e6ddf3;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream text-ink antialiased;
+  }
+  h1, h2, h3, .font-heading {
+    font-family: var(--font-heading);
+  }
+  ::selection {
+    background: var(--color-blush);
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-brand text-white shadow-sm shadow-brand/30 hover:bg-brand-dark;
+}
+@utility btn-dark {
+  @apply btn bg-ink text-white hover:bg-ink/90;
+}
+@utility btn-ghost {
+  @apply btn border border-line bg-white text-ink hover:border-ink/30;
+}
+@utility input {
+  @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-muted/70 focus:border-brand focus:ring-4 focus:ring-brand/10;
+}
+@utility label {
+  @apply mb-1.5 block text-xs font-bold uppercase tracking-wide text-muted;
+}
+@utility card {
+  @apply rounded-2xl border border-line bg-white;
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
