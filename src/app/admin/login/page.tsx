@@ -11,6 +11,17 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  async function forgot() {
+    if (!email) return setError("Type your email first, then tap “Forgot password”.");
+    setError("");
+    const { error } = await createClient().auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/admin/reset-password`,
+    });
+    if (error) return setError(error.message);
+    setNotice("Check your inbox for a reset link 📬");
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -39,8 +50,12 @@ function LoginForm() {
         <input className="input" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       {error && <p className="rounded-xl bg-brand-soft px-3 py-2 text-sm font-semibold text-brand-dark">{error}</p>}
+      {notice && <p className="rounded-xl bg-sage px-3 py-2 text-sm font-semibold text-sage-deep">{notice}</p>}
       <button className="btn-primary w-full" disabled={loading}>
         {loading ? "Signing in…" : "Sign in"}
+      </button>
+      <button type="button" onClick={forgot} className="w-full text-center text-sm font-bold text-muted hover:text-ink">
+        Forgot password?
       </button>
     </form>
   );
